@@ -1,13 +1,20 @@
-const URL = 'http://note.dev.cloud.lightform.com/notes'
+const URL = 'http://note.dev.cloud.lightform.com/notes';
+const limit = 10;
 
 const NoteAPI = {
-  
-
   getNotes: async (page = 1) => {
-    const results = await fetch(URL + `?page=${page}&limit=100`);
+    const queryParams = `?page=${page}&limit=${limit}`;
+    const results = await fetch(URL + queryParams);
     const json = await results.json();
+
+    console.log("total", json.total);
     
-    return json._embedded.notes.reverse();
+    const obj = {
+      pages: Math.max(json.total / limit),
+      notes: json._embedded.notes
+    };
+
+    return obj;
   },
 
   getNote: async (id) => {

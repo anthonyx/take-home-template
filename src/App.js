@@ -1,27 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
-import NoteAPI from './api/NoteAPI';
 import NoteList from './components/NoteList';
 import NoteDetail from './components/NoteDetail';
 import {
+  Link,
+  Redirect,
   BrowserRouter as Router,
-  Switch,
   Route,
-  Link
+  Switch,
+  
 } from "react-router-dom";
 
 function App() {
-  const [notes, setNotes] = useState([]);
-
-  useEffect(() => {
-    async function fetchNotes() {
-      const notes = await NoteAPI.getNotes();
-      setNotes(notes);
-    }
-
-    fetchNotes();
-  }, []);
-
   return (
     <div className="App">
       <Router>
@@ -31,16 +21,18 @@ function App() {
         <Switch>
           <Route
             exact path='/'
-            render={props => (<NoteList notes={notes} setNotes={setNotes}/>)}    
+            render={() => (<Redirect to="/page/1" />)}    
+          />
+          <Route
+            path={'/page/:pageNumber'}
+            render={props => (<NoteList />)}    
           />
           <Route
             path={'/note/:noteId'}
-            render={props => (<NoteDetail notes={notes} setNotes={setNotes}/>)}
+            render={props => (<NoteDetail />)}
           />
         </Switch>
       </Router>
-      
-      
     </div>
   );
 }

@@ -8,12 +8,8 @@ const Modal = (props) => {
   const addNote = async () => {
     const response = await NoteAPI.createNote(title, body);
 
-    if (response.ok) {
-      const notes = await NoteAPI.getNotes();
-      props.setNotes(notes);
-    }
-    
     props.setShowModal(false);
+    window.location.reload();
   }
 
   return (

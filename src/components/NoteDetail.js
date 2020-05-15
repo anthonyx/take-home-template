@@ -1,43 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import NoteAPI from '../api/NoteAPI';
 
 function NoteDetail(props) {
   const { noteId } = useParams();
   const history = useHistory();
-  const [title, setTitle] = useState(null);
-  const [body, setBody] = useState(null);
-  const note = props.notes.find(note => (note.id.toString() === noteId));
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
 
-  if (title === null && body === null && props.notes.length > 0) {
-    if (!note) {
-      history.push('/');
-    } else {
+  useEffect(() => {
+    async function getNote() {
+      const note = await NoteAPI.getNote(noteId);
+
       setTitle(note.title);
       setBody(note.body);
     }
-  }
+
+    getNote();
+  }, [noteId]);
 
   const deleteNote = async () => {
     const response = await NoteAPI.deleteNote(noteId);
-    
-    if (response.ok) {
-      const notes = await NoteAPI.getNotes();
-      props.setNotes(notes);
-    }
-    
-    history.push('/');
+
+    history.goBack();
   }
 
   const updateNote = async () => {
     const response = await NoteAPI.updateNote(noteId, title, body);
     
-    if (response.ok) {
-      const notes = await NoteAPI.getNotes();
-      props.setNotes(notes);
-    }
-    
-    history.push('/');
+    history.goBack();
   }
 
   return (
