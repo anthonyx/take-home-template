@@ -33,7 +33,7 @@ function NoteList() {
         ))}
       </div>
       {
-        pageNumber !== 1 && 
+        pageNumber > 1 && 
         <button
           className="btn btn-light"
           onClick={() => {
