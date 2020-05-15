@@ -1,7 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Lightform Take Home Challenge
-
 ### `npm install`
 
 Installs dependencies.
@@ -18,5 +16,4 @@ Starts the app in development mode at [http://localhost:3000](http://localhost:3
 
 ### Features:
 - Ability to display, create, delete, and update notes
-- Hyperlinkable with a custom id for each note
-- Single page application
+- Hyperlinkable for each page/note
