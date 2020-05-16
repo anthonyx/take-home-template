@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import NoteAPI from '../api/NoteAPI';
 import NoteItem from './NoteItem';
 import AddNoteButton from './AddNoteButton';
-
+// Unnecessary padding
 
 
 function NoteList() {
@@ -20,7 +20,9 @@ function NoteList() {
       setNotes(data.notes);
       setPages(data.pages);
     }
-
+    // Is there a way to cache notes we've already loaded?
+    // Calling the API every time we switch pages is not good
+    // Can be slow and at a real company, more server calls = more expensive
     getNotes();
   }, [pageNumber]);
 
@@ -59,4 +61,4 @@ function NoteList() {
   )
 }
 
-export default NoteList;
+export default NoteList; // Missing new line at bottom
