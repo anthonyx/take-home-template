@@ -8,7 +8,7 @@ function NoteItem(props) {
     <div 
       className="list-group-item-action col-s-6 col-md-4 col-lg-3 p-2" 
       id={"note-item-"+props.note.id}
-      onClick={() => { history.push(`/note/${props.note.id}`) }}
+      onClick={() => { history.push(`/note/${props.note.id}`) }} // Do the inner set of brackets do anything?
     >
       <h6 className="text-left">
         {props.note.title}

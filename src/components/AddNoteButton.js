@@ -6,6 +6,7 @@ function AddNoteButton() {
 
   return (
     <div>
+      {/* Do the brackets around 'setShowModal' do anything? */}
       <button className="btn btn-primary" onClick={() => {setShowModal(true)}}>Add Note</button>
       {showModal ? <Modal setShowModal={setShowModal} /> : null}
     </div>
@@ -13,4 +14,4 @@ function AddNoteButton() {
 }
 
 export default AddNoteButton
-
+// Extra line at bottom lol
