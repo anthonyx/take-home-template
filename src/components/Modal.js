@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NoteAPI from '../api/NoteAPI';
 
-const Modal = (props) => {
+const Modal = (props) => { // Why is this the only component declared as an arrow function?
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
