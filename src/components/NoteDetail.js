@@ -20,14 +20,12 @@ function NoteDetail(props) {
   }, [noteId]);
 
   const deleteNote = async () => {
-    const response = await NoteAPI.deleteNote(noteId);
-
+    await NoteAPI.deleteNote(noteId);
     history.goBack();
   }
 
   const updateNote = async () => {
-    const response = await NoteAPI.updateNote(noteId, title, body);
-    
+    await NoteAPI.updateNote(noteId, title, body);
     history.goBack();
   }
 

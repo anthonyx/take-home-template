@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NoteAPI from '../api/NoteAPI';
 
-const Modal = (props) => {
+function Modal(props) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 

@@ -4,8 +4,6 @@ import NoteAPI from '../api/NoteAPI';
 import NoteItem from './NoteItem';
 import AddNoteButton from './AddNoteButton';
 
-
-
 function NoteList() {
   const [notes, setNotes] = useState([]);
   const [pages, setPages] = useState(0);
@@ -27,11 +25,6 @@ function NoteList() {
   return (
     <div className="container py-5">
       <AddNoteButton />
-      <div className="row">
-        {notes.map((note) => (
-          <NoteItem key={note.id} note={note} />
-        ))}
-      </div>
       {
         pageNumber > 1 && 
         <button
@@ -54,7 +47,11 @@ function NoteList() {
           {"Next>"}
         </button> 
       }
-      
+      <div className="row d-flex justify-content-center">
+        {notes.map((note) => (
+          <NoteItem key={note.id} note={note} />
+        ))}
+      </div>      
     </div>
   )
 }

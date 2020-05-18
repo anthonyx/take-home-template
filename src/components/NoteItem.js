@@ -6,16 +6,15 @@ function NoteItem(props) {
 
   return (
     <div 
-      className="list-group-item-action col-s-6 col-md-4 col-lg-3 p-2" 
+      className="card" 
+      style={{width: "15rem"}}
       id={"note-item-"+props.note.id}
       onClick={() => { history.push(`/note/${props.note.id}`) }}
     >
-      <h6 className="text-left">
-        {props.note.title}
-      </h6>
-      <p className="text-left">
-        {props.note.body}
-      </p>
+      <div className="card-body">
+        <h5 className="card-title text-left">{props.note.title}</h5>
+        <p className="card-text text-left">{props.note.body}</p>
+      </div>
     </div>
   );
 }
