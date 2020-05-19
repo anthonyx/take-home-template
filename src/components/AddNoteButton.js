@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 
-function AddNoteButton() {
+function AddNoteButton(props) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -12,10 +12,10 @@ function AddNoteButton() {
       >
         Add Note
       </button>
-      {showModal ? <Modal setShowModal={setShowModal} /> : null}
+      {showModal ? <Modal setShowModal={setShowModal} lastPage={props.lastPage} /> : null}
     </div>
   );
 }
 
-export default AddNoteButton
+export default AddNoteButton;
 

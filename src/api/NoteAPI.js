@@ -4,12 +4,12 @@ const limit = 12;
 const NoteAPI = {
   getNotes: async (page = 1) => {
     const queryParams = `?page=${page}&limit=${limit}`;
-    
+
     try {
       const results = await fetch(URL + queryParams);
       const json = await results.json();
       const obj = {
-        pages: Math.max(json.total / limit),
+        pages: Math.ceil(json.total / limit),
         notes: json._embedded.notes
       };
 

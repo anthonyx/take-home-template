@@ -8,33 +8,44 @@ function Modal(props) {
   const addNote = async () => {
     await NoteAPI.createNote(title, body);
     props.setShowModal(false);
-    window.location.reload();
+
+    if (props.lastPage) {
+      window.location.reload();
+    }
   }
 
   return (
     <div className="modal d-block">
-      <div className="modal-dialog modal-dialog-centered" role="document">
+      <div 
+        className="modal-dialog modal-dialog-centered" 
+        role="document"
+      >
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">
-              <input className="form-control" placeholder="Title" value={title} onChange={(e) => {
-                setTitle(e.target.value);
-              }}/>
+              <input 
+                className="form-control" 
+                placeholder="Title" 
+                value={title} 
+                onChange={(e) => {setTitle(e.target.value)}}
+              />
             </h5>
             <button 
               type="button" 
               className="close" 
-              onClick={() => {
-                props.setShowModal(false);
-              }}
+              onClick={() => {props.setShowModal(false)}}
             >
               <span>&times;</span>
             </button>
           </div>
           <div className="modal-body">
-            <textarea className="form-control" rows="3" placeholder="Enter note here..." value={body} onChange={(e) => {
-              setBody(e.target.value);
-            }}/>
+            <textarea 
+              className="form-control" 
+              rows="3" 
+              placeholder="Enter note here..." 
+              value={body} 
+              onChange={(e) => {setBody(e.target.value)}}
+            />
           </div>
           <div className="modal-footer">
             <button 

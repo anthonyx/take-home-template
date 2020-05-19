@@ -6,7 +6,7 @@ import AddNoteButton from './AddNoteButton';
 
 function NoteList() {
   const [notes, setNotes] = useState([]);
-  const [pages, setPages] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
   let { pageNumber } = useParams();
   pageNumber = parseFloat(pageNumber);
   const history = useHistory();
@@ -15,11 +15,11 @@ function NoteList() {
     async function getNotes() {
       const data = await NoteAPI.getNotes(pageNumber);
 
-      if (data.notes.length === 0) {
+      if (data.notes.length === 0 && pageNumber > 1) {
         history.push('/404');
       } else {
         setNotes(data.notes);
-        setPages(data.pages);
+        setPageCount(data.pages);
       }
     }
 
@@ -28,7 +28,7 @@ function NoteList() {
 
   return (
     <div className="container py-5">
-      <AddNoteButton />
+      <AddNoteButton lastPage={pageNumber === pageCount} />
       {
         pageNumber > 1 && 
         <button
@@ -37,11 +37,11 @@ function NoteList() {
             history.push(`/page/${pageNumber - 1}`);
           }}
         >
-          {"<Previous"}
+          {"<Prev"}
         </button>
       }
       {
-        pageNumber < pages &&
+        pageNumber < pageCount &&
         <button
           className="btn btn-light"
           onClick={() => {
