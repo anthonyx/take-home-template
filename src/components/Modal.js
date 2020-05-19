@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import NoteAPI from '../api/NoteAPI';
 
 function Modal(props) {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
 
   const addNote = async () => {
-    const response = await NoteAPI.createNote(title, body);
-
+    await NoteAPI.createNote(title, body);
     props.setShowModal(false);
     window.location.reload();
   }

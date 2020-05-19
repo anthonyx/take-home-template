@@ -6,7 +6,12 @@ function AddNoteButton() {
 
   return (
     <div>
-      <button className="btn btn-primary" onClick={() => {setShowModal(true)}}>Add Note</button>
+      <button 
+        className="btn btn-primary" 
+        onClick={() => {setShowModal(true)}}
+      >
+        Add Note
+      </button>
       {showModal ? <Modal setShowModal={setShowModal} /> : null}
     </div>
   );

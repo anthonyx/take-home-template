@@ -3,19 +3,23 @@ import { useParams, useHistory } from 'react-router-dom';
 import NoteAPI from '../api/NoteAPI';
 
 function NoteDetail(props) {
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
   const { noteId } = useParams();
   const history = useHistory();
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
 
   useEffect(() => {
     async function getNote() {
       const note = await NoteAPI.getNote(noteId);
-
-      setTitle(note.title);
-      setBody(note.body);
+      
+      if (!note) {
+        history.push('/404');
+      } else {
+        setTitle(note.title);
+        setBody(note.body);
+      }
     }
-
+    
     getNote();
   }, [noteId]);
 
@@ -30,32 +34,34 @@ function NoteDetail(props) {
   }
 
   return (
-    <div>
+    <div className="container d-flex flex-column align-items-center">
       <input 
-        className="form-control" 
+        className="form-control w-50" 
         placeholder="Title" 
         value={title} 
         onChange={(e) => {setTitle(e.target.value)}}
       />
       <textarea 
-        className="form-control" 
+        className="form-control w-50" 
         rows="3" 
         placeholder="Enter note here..." 
         value={body} 
         onChange={(e) => {setBody(e.target.value)}}
       />
-      <button 
-        className="btn btn-danger"
-        onClick={deleteNote}
-      >
-        Delete
-      </button>
-      <button
-        className="btn btn-primary"
-        onClick={updateNote}
-      >
-        Update
-      </button>
+      <div>
+        <button 
+          className="btn btn-danger px-5"
+          onClick={deleteNote}
+        >
+          Delete
+        </button>
+        <button
+          className="btn btn-primary px-5"
+          onClick={updateNote}
+        >
+          Update
+        </button>
+      </div>
     </div>
   );
 }

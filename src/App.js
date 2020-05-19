@@ -11,6 +11,18 @@ import {
 } from "react-router-dom";
 
 function App() {
+
+  function NoMatch() {
+    return (
+      <div>
+        <h1>404 Error</h1>
+        <p>
+          <Link to="/">Go home</Link>
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <Router>
@@ -30,6 +42,7 @@ function App() {
             path={'/note/:noteId'}
             render={props => (<NoteDetail />)}
           />
+          <Route component={NoMatch} />
         </Switch>
       </Router>
     </div>

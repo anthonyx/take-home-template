@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import NoteAPI from '../api/NoteAPI';
 import NoteItem from './NoteItem';
 import AddNoteButton from './AddNoteButton';
@@ -15,8 +15,12 @@ function NoteList() {
     async function getNotes() {
       const data = await NoteAPI.getNotes(pageNumber);
 
-      setNotes(data.notes);
-      setPages(data.pages);
+      if (data.notes.length === 0) {
+        history.push('/404');
+      } else {
+        setNotes(data.notes);
+        setPages(data.pages);
+      }
     }
 
     getNotes();
