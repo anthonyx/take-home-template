@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import NoteAPI from '../api/NoteAPI';
 
-function Modal(props) {
+function Modal({ pageCount, pageNumber, getNotes, setShowModal }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
   const addNote = async () => {
     await NoteAPI.createNote(title, body);
-    props.setShowModal(false);
+    setShowModal(false);
 
-    if (props.lastPage) {
-      window.location.reload();
+    if (pageCount === pageNumber) {
+      getNotes(pageNumber);
     }
   }
 
@@ -33,7 +33,7 @@ function Modal(props) {
             <button 
               type="button" 
               className="close" 
-              onClick={() => {props.setShowModal(false)}}
+              onClick={() => {setShowModal(false)}}
             >
               <span>&times;</span>
             </button>

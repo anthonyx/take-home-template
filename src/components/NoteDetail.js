@@ -5,22 +5,30 @@ import NoteAPI from '../api/NoteAPI';
 function NoteDetail(props) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const { noteId } = useParams();
+  let { noteId } = useParams();
+  noteId = parseFloat(noteId);
   const history = useHistory();
 
   useEffect(() => {
     async function getNote() {
-      const note = await NoteAPI.getNote(noteId);
+      const fetchedNote = await NoteAPI.getNote(noteId);
       
-      if (!note) {
+      if (!fetchedNote) {
         history.push('/404');
       } else {
-        setTitle(note.title);
-        setBody(note.body);
+        setTitle(fetchedNote.title);
+        setBody(fetchedNote.body);
       }
     }
-    
-    getNote();
+
+    let note = props.notes && props.notes.find((note) => (note.id === noteId));
+  
+    if (!note) {
+      getNote();
+    } else {
+      setTitle(note.title);
+      setBody(note.body);
+    }
   }, [noteId]);
 
   const deleteNote = async () => {

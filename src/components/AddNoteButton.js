@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 
-function AddNoteButton(props) {
+function AddNoteButton({ pageCount, pageNumber, getNotes }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -12,7 +12,13 @@ function AddNoteButton(props) {
       >
         Add Note
       </button>
-      {showModal ? <Modal setShowModal={setShowModal} lastPage={props.lastPage} /> : null}
+      {showModal ? 
+        <Modal
+          setShowModal={setShowModal}
+          pageCount={pageCount}
+          pageNumber={pageNumber}
+          getNotes={getNotes}
+        /> : null}
     </div>
   );
 }

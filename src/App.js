@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import NoteList from './components/NoteList';
 import NoteDetail from './components/NoteDetail';
+import NoteAPI from './api/NoteAPI';
 import {
   Link,
   Redirect,
@@ -11,6 +12,18 @@ import {
 } from "react-router-dom";
 
 function App() {
+  const [notes, setNotes] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
+
+  async function getNotes(page = 1) {
+    const data = await NoteAPI.getNotes(page);
+    
+    if (data) {
+      setNotes(data.notes);
+      setPageCount(data.pages);
+    }
+  }
+
   function NoMatch() {
     return (
       <div>
@@ -35,11 +48,17 @@ function App() {
           />
           <Route
             path={'/page/:pageNumber'}
-            render={props => (<NoteList />)}    
+            render={props => (
+              <NoteList 
+                notes={notes} 
+                getNotes={getNotes} 
+                pageCount={pageCount}
+              />
+            )}    
           />
           <Route
             path={'/note/:noteId'}
-            render={props => (<NoteDetail />)}
+            render={props => (<NoteDetail notes={notes} />)}
           />
           <Route component={NoMatch} />
         </Switch>
