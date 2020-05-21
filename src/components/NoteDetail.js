@@ -33,7 +33,8 @@ function NoteDetail({ notes, pageCount }) {
 
   const deleteNote = async () => {
     await NoteAPI.deleteNote(noteId);
-
+    
+    // If the last note of the last page is deleted, direct to previous page
     if (notes.length === 1 && pageCount > 1) {
       const lastPage = pageCount - 1;
       history.push('/page/' + lastPage);
@@ -57,7 +58,7 @@ function NoteDetail({ notes, pageCount }) {
       />
       <textarea 
         className="form-control w-50" 
-        rows="3" 
+        rows="5" 
         placeholder="Enter note here..." 
         value={body} 
         onChange={(e) => {setBody(e.target.value)}}

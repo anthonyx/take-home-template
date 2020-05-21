@@ -1,5 +1,5 @@
 const URL = 'http://note.dev.cloud.lightform.com/notes';
-const limit = 4;
+const limit = 12;
 
 const NoteAPI = {
   getNotes: async (page = 1) => {

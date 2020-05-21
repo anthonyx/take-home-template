@@ -7,7 +7,7 @@ function AddNoteButton({ pageCount, pageNumber, setNotes, setPageCount }) {
   return (
     <div>
       <button 
-        className="btn btn-primary" 
+        className="btn btn-primary m-1" 
         onClick={() => {setShowModal(true)}}
       >
         Add Note

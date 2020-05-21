@@ -10,7 +10,7 @@ function NoteList({ notes, pageCount, setNotes, setPageCount }) {
   const history = useHistory();
 
   useEffect(() => {
-    async function getNotes(page = 1) {
+    const getNotes = async (page = 1) => {
       const data = await NoteAPI.getNotes(page);
       
       if (!data || (data.notes.length === 0 && page > 1)) {
@@ -28,7 +28,7 @@ function NoteList({ notes, pageCount, setNotes, setPageCount }) {
   const nextButtonDisabled = pageNumber === pageCount;
 
   return (
-    <div className="container py-5">
+    <div className="container py-2">
       <AddNoteButton
         pageNumber={pageNumber}
         pageCount={pageCount} 
@@ -36,7 +36,7 @@ function NoteList({ notes, pageCount, setNotes, setPageCount }) {
         setPageCount={setPageCount}
       />
       <button
-        className="btn btn-light"
+        className="btn btn-light m-1"
         disabled={prevButtonDisabled}
         onClick={() => {
           history.push(`/page/${pageNumber - 1}`);
@@ -45,7 +45,7 @@ function NoteList({ notes, pageCount, setNotes, setPageCount }) {
         {"<Prev"}
       </button>
       <button
-        className="btn btn-light"
+        className="btn btn-light m-1"
         disabled={nextButtonDisabled}
         onClick={() => {
           history.push(`/page/${pageNumber + 1}`);
