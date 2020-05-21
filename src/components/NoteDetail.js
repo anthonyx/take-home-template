@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import NoteAPI from '../api/NoteAPI';
 
-function NoteDetail(props) {
+function NoteDetail({ notes, pageCount }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const history = useHistory();
   let { noteId } = useParams();
   noteId = parseFloat(noteId);
-  const history = useHistory();
 
   useEffect(() => {
-    async function getNote() {
+    const getNote = async () => {
       const fetchedNote = await NoteAPI.getNote(noteId);
       
       if (!fetchedNote) {
@@ -21,7 +21,7 @@ function NoteDetail(props) {
       }
     }
 
-    let note = props.notes && props.notes.find((note) => (note.id === noteId));
+    let note = notes && notes.find((note) => (note.id === noteId));
   
     if (!note) {
       getNote();
@@ -33,7 +33,13 @@ function NoteDetail(props) {
 
   const deleteNote = async () => {
     await NoteAPI.deleteNote(noteId);
-    history.goBack();
+
+    if (notes.length === 1 && pageCount > 1) {
+      const lastPage = pageCount - 1;
+      history.push('/page/' + lastPage);
+    } else {
+      history.goBack();
+    }
   }
 
   const updateNote = async () => {

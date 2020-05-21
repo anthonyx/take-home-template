@@ -1,14 +1,26 @@
 import React, { useEffect } from 'react';
-import { Link, useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import NoteItem from './NoteItem';
 import AddNoteButton from './AddNoteButton';
+import NoteAPI from '../api/NoteAPI';
 
-function NoteList({ notes, getNotes, pageCount }) {
+function NoteList({ notes, pageCount, setNotes, setPageCount }) {
   let { pageNumber } = useParams();
   pageNumber = parseFloat(pageNumber);
   const history = useHistory();
 
   useEffect(() => {
+    async function getNotes(page = 1) {
+      const data = await NoteAPI.getNotes(page);
+      
+      if (!data || (data.notes.length === 0 && page > 1)) {
+        history.push('/404');
+      } else {
+        setNotes(data.notes);
+        setPageCount(data.pages);
+      }
+    }
+
     getNotes(pageNumber);
   }, [pageNumber]);
   
@@ -17,10 +29,11 @@ function NoteList({ notes, getNotes, pageCount }) {
 
   return (
     <div className="container py-5">
-      <AddNoteButton 
+      <AddNoteButton
         pageNumber={pageNumber}
         pageCount={pageCount} 
-        getNotes={getNotes}
+        setNotes={setNotes}
+        setPageCount={setPageCount}
       />
       <button
         className="btn btn-light"

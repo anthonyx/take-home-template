@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './App.css';
 import NoteList from './components/NoteList';
 import NoteDetail from './components/NoteDetail';
-import NoteAPI from './api/NoteAPI';
 import {
   Link,
   Redirect,
@@ -15,16 +14,7 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [pageCount, setPageCount] = useState(1);
 
-  async function getNotes(page = 1) {
-    const data = await NoteAPI.getNotes(page);
-    
-    if (data) {
-      setNotes(data.notes);
-      setPageCount(data.pages);
-    }
-  }
-
-  function NoMatch() {
+  const NoMatch = () => {
     return (
       <div>
         <h1>404 Error</h1>
@@ -51,14 +41,20 @@ function App() {
             render={props => (
               <NoteList 
                 notes={notes} 
-                getNotes={getNotes} 
+                setNotes={setNotes} 
                 pageCount={pageCount}
+                setPageCount={setPageCount}
               />
             )}    
           />
           <Route
             path={'/note/:noteId'}
-            render={props => (<NoteDetail notes={notes} />)}
+            render={props => (
+              <NoteDetail 
+                notes={notes} 
+                pageCount={pageCount}
+              />
+            )}
           />
           <Route component={NoMatch} />
         </Switch>

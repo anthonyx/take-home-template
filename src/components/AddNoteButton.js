@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 
-function AddNoteButton({ pageCount, pageNumber, getNotes }) {
+function AddNoteButton({ pageCount, pageNumber, setNotes, setPageCount }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -17,7 +17,8 @@ function AddNoteButton({ pageCount, pageNumber, getNotes }) {
           setShowModal={setShowModal}
           pageCount={pageCount}
           pageNumber={pageNumber}
-          getNotes={getNotes}
+          setNotes={setNotes}
+          setPageCount={setPageCount}
         /> : null}
     </div>
   );

@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import NoteAPI from '../api/NoteAPI';
 
-function Modal({ pageCount, pageNumber, getNotes, setShowModal }) {
+function Modal({ pageCount, pageNumber, setNotes, setPageCount, setShowModal }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+
+  const getNotes = async (page = 1) => {
+    const data = await NoteAPI.getNotes(page);
+    
+    setNotes(data.notes);
+    setPageCount(data.pages);
+  }
 
   const addNote = async () => {
     await NoteAPI.createNote(title, body);
     setShowModal(false);
 
+    // If we are on the last page, we want to refetch it after adding a note
+    // TODO: Don't refetch if new page is created
     if (pageCount === pageNumber) {
-      getNotes(pageNumber);
+      await getNotes(pageNumber);
     }
   }
 
